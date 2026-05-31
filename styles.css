@@ -544,6 +544,65 @@ h3 {
   font-size: 0.9rem;
 }
 
+.deck-cta-section {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.deck-cta {
+  display: grid;
+  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.15fr);
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.deck-cta .section-kicker {
+  color: #c9c3b8;
+}
+
+.deck-cta p {
+  color: #eee8dd;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  margin: 8px 0 28px;
+}
+
+.deck-cta .button-primary {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.deck-hero {
+  background:
+    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 / 72px 100%,
+    linear-gradient(180deg, var(--paper), var(--paper-deep));
+  display: grid;
+  gap: clamp(26px, 5vw, 72px);
+  grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+  min-height: 58vh;
+}
+
+.deck-hero h1 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 0.85;
+  margin: 0;
+}
+
+.deck-hero p:not(.section-kicker) {
+  align-self: end;
+  border-left: 3px solid var(--gold);
+  color: var(--charcoal);
+  font-size: clamp(1.1rem, 2vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+  max-width: 680px;
+  padding-left: 18px;
+}
+
 .deck-section {
   background: var(--paper);
   display: grid;
@@ -844,6 +903,8 @@ h3 {
   .resume-layout,
   .impact-layout,
   .skills-layout,
+  .deck-cta,
+  .deck-hero,
   .deck-lead,
   .deck-spread,
   .collection-card,

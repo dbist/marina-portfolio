@@ -1,10 +1,9 @@
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const htmlPath = join(root, "index.html");
 const cssPath = join(root, "styles.css");
 const jsPath = join(root, "script.js");
 
@@ -14,8 +13,13 @@ const fail = (message) => failures.push(message);
 
 const read = (path) => readFileSync(path, "utf8");
 
+const htmlPaths = () =>
+  readdirSync(root)
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => join(root, file));
+
 const checkRequiredFiles = () => {
-  for (const path of [htmlPath, cssPath, jsPath]) {
+  for (const path of [join(root, "index.html"), cssPath, jsPath]) {
     if (!existsSync(path)) fail(`Missing required file: ${path}`);
   }
 };
@@ -34,49 +38,49 @@ const checkJavaScriptSyntax = () => {
 };
 
 const checkHtmlReferences = () => {
-  if (!existsSync(htmlPath)) return;
+  for (const htmlPath of htmlPaths()) {
+    const html = read(htmlPath);
+    const refs = [...html.matchAll(/\b(?:src|href)=["']([^"']+)["']/g)].map((match) => match[1]);
 
-  const html = read(htmlPath);
-  const refs = [...html.matchAll(/\b(?:src|href)=["']([^"']+)["']/g)].map((match) => match[1]);
+    for (const ref of refs) {
+      if (/^(#|https?:|mailto:|tel:)/.test(ref)) continue;
 
-  for (const ref of refs) {
-    if (/^(#|https?:|mailto:|tel:)/.test(ref)) continue;
+      const cleanRef = decodeURIComponent(ref.split("#")[0]);
+      const path = join(root, cleanRef);
 
-    const cleanRef = decodeURIComponent(ref.split("#")[0]);
-    const path = join(root, cleanRef);
+      if (!existsSync(path)) {
+        fail(`Missing referenced asset in ${htmlPath}: ${ref}`);
+        continue;
+      }
 
-    if (!existsSync(path)) {
-      fail(`Missing referenced asset: ${ref}`);
-      continue;
-    }
-
-    if (statSync(path).isDirectory()) {
-      fail(`Reference points to a directory instead of a file: ${ref}`);
+      if (statSync(path).isDirectory()) {
+        fail(`Reference points to a directory instead of a file in ${htmlPath}: ${ref}`);
+      }
     }
   }
 };
 
 const checkAnchors = () => {
-  if (!existsSync(htmlPath)) return;
+  for (const htmlPath of htmlPaths()) {
+    const html = read(htmlPath);
+    const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]));
+    const anchorRefs = [...html.matchAll(/\bhref=["']#([^"']+)["']/g)].map((match) => match[1]);
 
-  const html = read(htmlPath);
-  const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map((match) => match[1]));
-  const anchorRefs = [...html.matchAll(/\bhref=["']#([^"']+)["']/g)].map((match) => match[1]);
-
-  for (const id of anchorRefs) {
-    if (!ids.has(id)) fail(`Missing anchor target for href="#${id}"`);
+    for (const id of anchorRefs) {
+      if (!ids.has(id)) fail(`Missing anchor target in ${htmlPath} for href="#${id}"`);
+    }
   }
 };
 
 const checkImageAltText = () => {
-  if (!existsSync(htmlPath)) return;
+  for (const htmlPath of htmlPaths()) {
+    const html = read(htmlPath);
+    const imageTags = [...html.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]);
 
-  const html = read(htmlPath);
-  const imageTags = [...html.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]);
-
-  for (const tag of imageTags) {
-    const alt = tag.match(/\balt=["']([^"']*)["']/);
-    if (!alt || !alt[1].trim()) fail(`Image is missing useful alt text: ${tag}`);
+    for (const tag of imageTags) {
+      const alt = tag.match(/\balt=["']([^"']*)["']/);
+      if (!alt || !alt[1].trim()) fail(`Image is missing useful alt text in ${htmlPath}: ${tag}`);
+    }
   }
 };
 
@@ -93,7 +97,15 @@ const checkCssBalance = () => {
 };
 
 const checkLargeSourceFiles = () => {
-  const sourceFiles = ["index.html", "styles.css", "script.js", "AGENTS.md", "README.md", "package.json"];
+  const sourceFiles = [
+    "index.html",
+    "deck.html",
+    "styles.css",
+    "script.js",
+    "AGENTS.md",
+    "README.md",
+    "package.json",
+  ];
 
   for (const file of sourceFiles) {
     const path = join(root, file);
