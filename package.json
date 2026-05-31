@@ -1,0 +1,15 @@
+{
+  "name": "marina-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static portfolio website for Marina Ervits.",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "format": "prettier --write \"**/*.{html,css,js,md,json}\"",
+    "format:check": "prettier --check \"**/*.{html,css,js,md,json}\"",
+    "prepare": "git config core.hooksPath .githooks"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}
