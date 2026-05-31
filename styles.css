@@ -85,18 +85,30 @@ a {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 42vw);
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
   min-height: calc(100vh - 72px);
 }
 
 .hero-copy {
-  align-content: center;
+  align-content: space-between;
   background:
-    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 / 64px 100%,
+    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 / 72px 100%,
     linear-gradient(180deg, var(--paper), var(--paper-deep));
   display: grid;
   min-height: 620px;
   padding: clamp(48px, 8vw, 118px);
+}
+
+.cover-index {
+  align-self: start;
+  color: var(--muted);
+  display: grid;
+  font-size: 0.72rem;
+  font-weight: 800;
+  gap: 8px;
+  letter-spacing: 0.14em;
+  margin-bottom: 54px;
+  text-transform: uppercase;
 }
 
 .eyebrow,
@@ -112,7 +124,7 @@ a {
 .hero h1,
 .footer h2 {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(4rem, 12vw, 10rem);
+  font-size: clamp(4rem, 9.5rem, 10rem);
   font-weight: 500;
   letter-spacing: 0;
   line-height: 0.85;
@@ -121,7 +133,7 @@ a {
 
 .hero-title {
   color: var(--charcoal);
-  font-size: clamp(1.15rem, 2.4vw, 2rem);
+  font-size: clamp(1.15rem, 1.85rem, 2rem);
   line-height: 1.25;
   margin: 34px 0 0;
   max-width: 640px;
@@ -173,6 +185,7 @@ a {
   margin: 0;
   min-height: 620px;
   overflow: hidden;
+  position: relative;
 }
 
 .hero-image img {
@@ -180,6 +193,17 @@ a {
   object-fit: cover;
   object-position: center;
   width: 100%;
+}
+
+.hero-image figcaption {
+  bottom: 28px;
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  left: 28px;
+  letter-spacing: 0.14em;
+  position: absolute;
+  text-transform: uppercase;
 }
 
 section,
@@ -191,7 +215,9 @@ section,
 .experience-layout,
 .collection-lead,
 .product-lead,
-.resume-layout {
+.resume-layout,
+.impact-layout,
+.skills-layout {
   display: grid;
   gap: clamp(28px, 5vw, 72px);
   grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.15fr);
@@ -201,7 +227,7 @@ section,
 
 h2 {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2.3rem, 5.4vw, 5.3rem);
+  font-size: clamp(2.3rem, 4.9rem, 5.3rem);
   font-weight: 500;
   letter-spacing: 0;
   line-height: 0.95;
@@ -228,20 +254,22 @@ h3 {
 .intro-copy {
   display: grid;
   gap: 28px;
+  padding-top: 56px;
 }
 
 .proof-grid {
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  grid-template-columns: 1fr;
 }
 
 .proof-grid span {
-  border-top: 1px solid var(--line);
+  background: var(--white);
+  border-left: 2px solid var(--gold);
   color: var(--moss);
   font-size: 0.82rem;
   font-weight: 800;
-  padding-top: 10px;
+  padding: 12px 16px;
   text-transform: uppercase;
 }
 
@@ -256,33 +284,33 @@ h3 {
 
 .impact-grid {
   display: grid;
-  gap: 1px;
+  gap: 10px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0 auto;
-  max-width: 1180px;
 }
 
 .impact-grid article {
   background: rgba(255, 253, 248, 0.07);
-  min-height: 220px;
-  padding: clamp(22px, 3vw, 34px);
+  min-height: 172px;
+  padding: 24px 18px;
 }
 
 .impact-grid strong {
   color: var(--gold);
   display: block;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: 4.1rem;
   font-weight: 500;
-  line-height: 0.9;
-  margin-bottom: 18px;
+  line-height: 1;
+  margin-bottom: 14px;
+  white-space: nowrap;
 }
 
 .impact-grid span {
   color: #eee8dd;
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
+  line-height: 1.45;
 }
 
 .band {
@@ -296,14 +324,16 @@ h3 {
 }
 
 .timeline {
-  border-left: 1px solid rgba(255, 253, 248, 0.28);
+  border-left: 0;
   display: grid;
-  gap: 32px;
-  padding-left: clamp(22px, 4vw, 42px);
+  gap: 1px;
+  padding-left: 0;
 }
 
 .timeline article {
+  border-top: 1px solid rgba(255, 253, 248, 0.22);
   max-width: 720px;
+  padding: 22px 0;
 }
 
 .timeline span {
@@ -316,6 +346,7 @@ h3 {
 }
 
 .timeline p,
+.experience-heading p,
 .collection-copy p,
 .product-grid p,
 .process-grid p,
@@ -331,22 +362,26 @@ h3 {
 
 .skill-grid {
   display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0 auto;
-  max-width: 1180px;
+  gap: 1px;
+  grid-template-columns: 1fr;
 }
 
-.skill-grid span {
-  border: 1px solid var(--line);
+.skill-grid article {
+  border-top: 1px solid var(--line);
   color: var(--charcoal);
-  display: grid;
-  font-size: 0.84rem;
+  padding: 26px 0;
+}
+
+.skill-grid h3 {
+  font-size: 2rem;
+}
+
+.skill-grid p {
+  color: var(--muted);
+  font-size: 0.9rem;
   font-weight: 800;
-  min-height: 58px;
-  place-items: center;
-  padding: 12px;
-  text-align: center;
+  letter-spacing: 0.08em;
+  margin: 10px 0 0;
   text-transform: uppercase;
 }
 
@@ -569,6 +604,14 @@ h3 {
 }
 
 @media (max-width: 1180px) {
+  .impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .impact-grid strong {
+    font-size: 3.8rem;
+  }
+
   .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -591,6 +634,8 @@ h3 {
   .collection-lead,
   .product-lead,
   .resume-layout,
+  .impact-layout,
+  .skills-layout,
   .collection-card,
   .collection-card-reverse {
     grid-template-columns: 1fr;
@@ -611,9 +656,12 @@ h3 {
 
   .impact-grid,
   .process-grid,
-  .skill-grid,
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .intro-copy {
+    padding-top: 0;
   }
 
   .collection-card-reverse .collection-copy,
@@ -641,7 +689,7 @@ h3 {
   }
 
   .hero h1 {
-    font-size: clamp(3.6rem, 21vw, 5.4rem);
+    font-size: 4.4rem;
   }
 
   .hero-actions,
@@ -653,10 +701,13 @@ h3 {
   .impact-grid,
   .process-grid,
   .proof-grid,
-  .skill-grid,
   .product-grid,
   .image-mosaic {
     grid-template-columns: 1fr;
+  }
+
+  .impact-grid strong {
+    font-size: 3.35rem;
   }
 
   .impact-grid article,
