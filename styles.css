@@ -225,6 +225,16 @@ section,
   max-width: 1180px;
 }
 
+.intro-grid > *,
+.experience-layout > *,
+.collection-lead > *,
+.product-lead > *,
+.resume-layout > *,
+.impact-layout > *,
+.skills-layout > * {
+  min-width: 0;
+}
+
 h2 {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(2.3rem, 4.9rem, 5.3rem);
@@ -232,6 +242,7 @@ h2 {
   letter-spacing: 0;
   line-height: 0.95;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 h3 {
@@ -692,6 +703,10 @@ h3 {
 
   .hero h1 {
     font-size: 4.4rem;
+  }
+
+  h2 {
+    font-size: 3rem;
   }
 
   .hero-actions,
