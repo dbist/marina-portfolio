@@ -765,6 +765,15 @@ h3 {
   object-fit: contain;
 }
 
+.mini-board-full {
+  grid-template-columns: 1fr;
+}
+
+.mini-board-full img {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
 .deck-panel .text-link {
   align-self: end;
 }
@@ -802,6 +811,13 @@ h3 {
 
 .detail-board-product img {
   aspect-ratio: 1 / 1;
+}
+
+.full-page-board img {
+  aspect-ratio: 16 / 9;
+  background: #e6e0d6;
+  object-fit: contain;
+  width: 100%;
 }
 
 .deck-spread {
