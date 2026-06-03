@@ -119,6 +119,14 @@ npm run prepare
 - Do not close issues until the corresponding work is implemented and verified.
 - Keep issues focused enough to be independently actionable.
 
+## GitHub Actions Maintenance
+
+- Keep GitHub Actions versions current when adding or editing `.github/workflows`.
+- Before changing workflow files, run an update check with `gh api repos/dbist/marina-portfolio/actions/workflows` and inspect any workflow warnings in recent runs.
+- If repo-owned workflows use marketplace actions, compare them with the latest upstream releases, such as `gh api repos/actions/checkout/releases/latest --jq '.tag_name'` and `gh api repos/actions/upload-artifact/releases/latest --jq '.tag_name'`.
+- Prefer updating action versions to Node 24-compatible releases over suppressing deprecation warnings with temporary environment flags.
+- If the warning comes from GitHub-managed Pages workflows such as `dynamic/pages/pages-build-deployment`, document that there is no repo-owned workflow file to edit and verify the managed workflow still succeeds.
+
 ## Working Style
 
 - Make small, traceable changes.
