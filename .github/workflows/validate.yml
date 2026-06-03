@@ -30,3 +30,6 @@ jobs:
 
       - name: Run site checks
         run: npm run check
+
+      - name: Check formatting
+        run: npm run format:check

@@ -92,7 +92,8 @@ a {
 .hero-copy {
   align-content: center;
   background:
-    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 / 72px 100%,
+    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 /
+      72px 100%,
     linear-gradient(180deg, var(--paper), var(--paper-deep));
   display: grid;
   min-height: 620px;
@@ -615,7 +616,8 @@ h3 {
 
 .deck-hero {
   background:
-    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 / 72px 100%,
+    linear-gradient(90deg, rgba(61, 61, 59, 0.08) 1px, transparent 1px) 0 0 /
+      72px 100%,
     linear-gradient(180deg, var(--paper), var(--paper-deep));
   display: grid;
   gap: clamp(26px, 5vw, 72px);
