@@ -652,6 +652,7 @@ h3 {
 
 .deck-lead,
 .deck-spread,
+.deck-detail,
 .archive-lead {
   margin: 0 auto;
   max-width: 1180px;
@@ -723,6 +724,22 @@ h3 {
   text-transform: uppercase;
 }
 
+.idea-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.idea-tags span {
+  border: 1px solid var(--line);
+  color: var(--moss);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 7px 9px;
+  text-transform: uppercase;
+}
+
 .mini-board {
   display: grid;
   gap: 8px;
@@ -731,6 +748,8 @@ h3 {
 
 .mini-board img,
 .lookbook-strip img,
+.season-look-board img,
+.detail-board img,
 .assortment-grid img,
 .archive-grid img {
   background: #e6e0d6;
@@ -740,6 +759,49 @@ h3 {
 .mini-board img {
   aspect-ratio: 4 / 5;
   object-fit: cover;
+}
+
+.mini-board-four img {
+  object-fit: contain;
+}
+
+.deck-panel .text-link {
+  align-self: end;
+}
+
+.deck-detail {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(22px, 4vw, 44px);
+  grid-template-columns: minmax(220px, 0.35fr) minmax(0, 0.65fr);
+  padding-top: clamp(26px, 4vw, 42px);
+  scroll-margin-top: 104px;
+}
+
+.deck-detail-muted {
+  background: var(--white);
+  border-top: 0;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+.deck-detail:target {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.detail-board {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.detail-board img {
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+}
+
+.detail-board-product img {
+  aspect-ratio: 1 / 1;
 }
 
 .deck-spread {
@@ -767,9 +829,40 @@ h3 {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
+.season-look-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.season-look-grid article {
+  background: var(--white);
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.season-look-grid span {
+  color: var(--moss);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.season-look-board {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .lookbook-strip img {
   aspect-ratio: 3 / 4;
   object-fit: cover;
+}
+
+.season-look-board img {
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
 }
 
 .assortment-grid {
@@ -795,6 +888,10 @@ h3 {
 .assortment-grid img {
   aspect-ratio: 4 / 5;
   object-fit: contain;
+}
+
+.assortment-grid a {
+  min-width: 0;
 }
 
 .archive-lead {
@@ -973,6 +1070,7 @@ h3 {
   .deck-hero,
   .deck-lead,
   .deck-spread,
+  .deck-detail,
   .collection-card,
   .collection-card-reverse {
     grid-template-columns: 1fr;
@@ -999,7 +1097,12 @@ h3 {
   .impact-grid,
   .process-grid,
   .deck-strategy,
-  .product-grid {
+  .product-grid,
+  .detail-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .season-look-board {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1056,6 +1159,8 @@ h3 {
   .lookbook-strip,
   .assortment-grid,
   .archive-grid,
+  .detail-board,
+  .season-look-board,
   .product-grid,
   .image-mosaic {
     grid-template-columns: 1fr;
