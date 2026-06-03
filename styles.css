@@ -495,18 +495,22 @@ h3 {
 }
 
 .image-mosaic-source {
-  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .image-mosaic-source img,
 .image-mosaic-source img:first-child {
   aspect-ratio: 4 / 5;
   grid-row: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .image-mosaic-source img:first-child {
-  grid-column: span 2;
+  grid-column: auto;
+}
+
+.image-mosaic-holiday {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .product-section {
@@ -901,6 +905,25 @@ h3 {
 }
 
 @media (max-width: 1180px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-copy,
+  .hero-image {
+    min-height: auto;
+  }
+
+  .hero-image {
+    max-height: none;
+  }
+
+  .hero-image img {
+    height: auto;
+    object-fit: contain;
+  }
+
   .impact-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -987,6 +1010,10 @@ h3 {
   .collection-card-reverse .collection-copy,
   .collection-card-reverse .image-mosaic {
     order: initial;
+  }
+
+  .image-mosaic-holiday {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .footer {
