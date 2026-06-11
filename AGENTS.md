@@ -71,6 +71,31 @@ When adding resume content, summarize it into a web-native section and keep a di
 - Do not delete source PDFs unless explicitly asked.
 - Before committing, check for accidentally huge or duplicate extracted assets.
 
+### Transparency: never flatten cut-outs onto black
+
+Many product/model images in the deck are extracted from the PDF as **transparent cut-outs** (RGBA, `alpha=0` at the corners — the figure floats on nothing). The default behavior of `PIL.Image.convert("RGB")` and most format conversions composites transparent pixels onto **black**, which puts each model in an ugly black box on the otherwise white cards. This shipped once unnoticed and had to be re-fixed.
+
+When converting or re-encoding extracted images (e.g. PNG -> WebP):
+
+- **Always composite onto the card background explicitly**, not the implicit black. The cards use `var(--white)` = `#fffdf8`. Paste with the alpha channel as the mask:
+
+  ```python
+  bg = Image.new("RGB", src.size, (255, 253, 248))  # #fffdf8
+  bg.paste(src, mask=src.split()[3])                 # src is RGBA
+  ```
+
+- **Do not blindly `.convert("RGB")`** on an RGBA cut-out — that is the bug.
+- **Detect the problem** before committing: an image is suspect if all four corner pixels are near-black. Quick check across referenced images:
+
+  ```python
+  im = Image.open(p).convert("RGB"); w, h = im.size
+  black = all(sum(im.getpixel(xy)) < 60
+              for xy in [(2,2),(w-3,2),(2,h-3),(w-3,h-3)])
+  ```
+
+- **Genuinely dark photos are fine and must be kept** — e.g. the Holiday disco-ball hero (`collection-02-disco-sparkle`) is a real editorial photo shot on black. Distinguish artifact from intent by checking the **PDF source**: if the matching embedded image is RGBA with transparent corners it is a cut-out (fix it); if it is opaque RGB it is a real photo (leave it).
+- If transparency was already flattened in a committed file, the alpha is gone — **recover the cut-out by re-extracting from the PDF**, not by editing the flattened file. When several PDF images share a size, disambiguate by visual similarity (lowest MSE of `candidate-composited-on-black` vs the current file); the correct source's page number will line up with the `page-NN-*` filename.
+
 ## Verification
 
 For visual changes:
