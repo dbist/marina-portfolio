@@ -103,9 +103,11 @@ a {
 .eyebrow,
 .section-kicker {
   color: var(--muted);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   margin: 0 0 18px;
   text-transform: uppercase;
 }
@@ -187,8 +189,10 @@ a {
 .hero-image figcaption {
   bottom: 28px;
   color: var(--white);
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
   left: 28px;
   letter-spacing: 0.14em;
   position: absolute;
@@ -437,7 +441,7 @@ h3 {
   order: 2;
 }
 
-.collection-card-reverse .image-mosaic {
+.collection-card-reverse .mood-board {
   order: 1;
 }
 
@@ -458,8 +462,10 @@ h3 {
 
 .case-points dt {
   color: var(--moss);
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -469,81 +475,45 @@ h3 {
   margin: 5px 0 0;
 }
 
-.image-mosaic {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
+.mood-board {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(12px, 1.6vw, 20px);
+  justify-content: center;
+  padding: clamp(20px, 3vw, 38px);
 }
 
-.image-mosaic img {
-  aspect-ratio: 4 / 5;
-  background: #e6e0d6;
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
+.mood-board img {
+  background: var(--white);
+  border: 1px solid rgba(49, 48, 46, 0.1);
+  box-shadow: 0 12px 26px rgba(49, 48, 46, 0.16);
+  height: clamp(150px, 16vw, 228px);
+  padding: 7px;
+  width: auto;
 }
 
-.image-mosaic img:first-child {
-  aspect-ratio: 1 / 1;
-  grid-row: span 2;
+.mood-board img:first-child {
+  height: clamp(216px, 23vw, 330px);
 }
 
-.image-mosaic-four img,
-.image-mosaic-four img:first-child {
-  aspect-ratio: 4 / 5;
-  grid-row: auto;
-  object-fit: contain;
+.mood-board-fall {
+  background: #957f56;
 }
 
-.image-mosaic-source {
-  align-items: stretch;
-  gap: 2px;
-  grid-auto-flow: dense;
-  grid-auto-rows: minmax(110px, 12vw);
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+.mood-board-holiday {
+  background: #3d3d3d;
 }
 
-.image-mosaic-source img,
-.image-mosaic-source img:first-child {
-  aspect-ratio: auto;
-  grid-row: auto;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+.mood-board-trans {
+  background: var(--white);
+  border: 1px solid var(--line);
 }
 
-.image-mosaic-source img:first-child {
-  grid-column: span 3;
-  grid-row: span 4;
-}
-
-.image-mosaic-source img:nth-child(2),
-.image-mosaic-source img:nth-child(7) {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.image-mosaic-source img:nth-child(3),
-.image-mosaic-source img:nth-child(6),
-.image-mosaic-source img:nth-child(10) {
-  grid-row: span 2;
-}
-
-.image-mosaic-source img:nth-child(4),
-.image-mosaic-source img:nth-child(8) {
-  grid-column: span 2;
-}
-
-.image-mosaic-source img:nth-child(5),
-.image-mosaic-source img:nth-child(9),
-.image-mosaic-source img:nth-child(11),
-.image-mosaic-source img:nth-child(12) {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.image-mosaic-holiday {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+.mood-board-trans img {
+  border-color: var(--line);
+  box-shadow: 0 10px 22px rgba(49, 48, 46, 0.12);
 }
 
 .product-section {
@@ -592,9 +562,11 @@ h3 {
 
 .product-tag {
   color: var(--rose);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   margin: 0 0 10px;
   text-transform: uppercase;
 }
@@ -658,9 +630,9 @@ h3 {
       72px 100%,
     linear-gradient(180deg, var(--paper), var(--paper-deep));
   display: grid;
-  gap: clamp(26px, 5vw, 72px);
-  grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
-  min-height: 58vh;
+  grid-template-columns: 1fr;
+  min-height: 38vh;
+  align-content: center;
 }
 
 .deck-hero h1 {
@@ -806,7 +778,8 @@ h3 {
 }
 
 .mini-board-four img {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 3;
+  background: var(--white);
   object-fit: contain;
 }
 
@@ -911,6 +884,7 @@ h3 {
 }
 
 .season-look-board {
+  align-items: start;
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -922,8 +896,7 @@ h3 {
 }
 
 .season-look-board img {
-  aspect-ratio: 4 / 5;
-  object-fit: contain;
+  height: auto;
 }
 
 .assortment-grid {
@@ -1173,21 +1146,12 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .image-mosaic-source {
-    grid-auto-rows: minmax(110px, 18vw);
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .mood-board img {
+    height: clamp(150px, 24vw, 220px);
   }
 
-  .image-mosaic-source img:first-child,
-  .image-mosaic-source img:nth-child(2),
-  .image-mosaic-source img:nth-child(4),
-  .image-mosaic-source img:nth-child(5),
-  .image-mosaic-source img:nth-child(7),
-  .image-mosaic-source img:nth-child(8),
-  .image-mosaic-source img:nth-child(9),
-  .image-mosaic-source img:nth-child(11),
-  .image-mosaic-source img:nth-child(12) {
-    grid-column: span 2;
+  .mood-board img:first-child {
+    height: clamp(216px, 34vw, 312px);
   }
 
   .intro-copy {
@@ -1195,12 +1159,8 @@ h3 {
   }
 
   .collection-card-reverse .collection-copy,
-  .collection-card-reverse .image-mosaic {
+  .collection-card-reverse .mood-board {
     order: initial;
-  }
-
-  .image-mosaic-holiday {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .footer {
@@ -1245,21 +1205,23 @@ h3 {
   .archive-grid,
   .detail-board,
   .season-look-board,
-  .product-grid,
-  .image-mosaic {
+  .product-grid {
     grid-template-columns: 1fr;
   }
 
-  .image-mosaic-source {
-    grid-auto-rows: auto;
+  .mood-board {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .image-mosaic-source img,
-  .image-mosaic-source img:first-child,
-  .image-mosaic-source img:nth-child(n) {
-    aspect-ratio: 4 / 5;
-    grid-column: auto;
-    grid-row: auto;
+  .mood-board img,
+  .mood-board img:first-child {
+    flex: 0 0 auto;
+    height: 236px;
+    scroll-snap-align: center;
   }
 
   .impact-grid strong {
@@ -1269,10 +1231,6 @@ h3 {
   .impact-grid article,
   .process-grid article {
     min-height: auto;
-  }
-
-  .image-mosaic img:first-child {
-    grid-row: auto;
   }
 
   .timeline {
