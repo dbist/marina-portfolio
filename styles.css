@@ -496,18 +496,47 @@ h3 {
 }
 
 .image-mosaic-source {
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  align-items: stretch;
+  grid-auto-flow: dense;
+  grid-auto-rows: minmax(92px, 9vw);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .image-mosaic-source img,
 .image-mosaic-source img:first-child {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: auto;
   grid-row: auto;
   object-fit: contain;
 }
 
 .image-mosaic-source img:first-child {
-  grid-column: auto;
+  grid-column: span 3;
+  grid-row: span 3;
+}
+
+.image-mosaic-source img:nth-child(2),
+.image-mosaic-source img:nth-child(7) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.image-mosaic-source img:nth-child(3),
+.image-mosaic-source img:nth-child(6),
+.image-mosaic-source img:nth-child(10) {
+  grid-row: span 2;
+}
+
+.image-mosaic-source img:nth-child(4),
+.image-mosaic-source img:nth-child(8) {
+  grid-column: span 2;
+}
+
+.image-mosaic-source img:nth-child(5),
+.image-mosaic-source img:nth-child(9),
+.image-mosaic-source img:nth-child(11),
+.image-mosaic-source img:nth-child(12) {
+  grid-column: span 2;
+  grid-row: span 2;
 }
 
 .image-mosaic-holiday {
@@ -524,8 +553,8 @@ h3 {
 
 .product-grid {
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   margin: 0 auto;
   max-width: 1320px;
 }
@@ -534,15 +563,20 @@ h3 {
   background: var(--white);
   box-shadow: var(--shadow);
   display: grid;
+  grid-column: span 2;
   grid-template-rows: auto 1fr;
   min-width: 0;
 }
 
+.product-grid article:nth-child(-n + 2) {
+  grid-column: span 3;
+}
+
 .product-grid img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 11;
   background: #ddd5ca;
   object-fit: contain;
-  padding: 10px;
+  padding: 14px;
   width: 100%;
 }
 
@@ -759,8 +793,8 @@ h3 {
 }
 
 .mini-board img {
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
 }
 
 .mini-board-four img {
@@ -1051,6 +1085,11 @@ h3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .product-grid article,
+  .product-grid article:nth-child(-n + 2) {
+    grid-column: span 1;
+  }
+
   .deck-strategy,
   .archive-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1124,6 +1163,23 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .image-mosaic-source {
+    grid-auto-rows: minmax(110px, 18vw);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .image-mosaic-source img:first-child,
+  .image-mosaic-source img:nth-child(2),
+  .image-mosaic-source img:nth-child(4),
+  .image-mosaic-source img:nth-child(5),
+  .image-mosaic-source img:nth-child(7),
+  .image-mosaic-source img:nth-child(8),
+  .image-mosaic-source img:nth-child(9),
+  .image-mosaic-source img:nth-child(11),
+  .image-mosaic-source img:nth-child(12) {
+    grid-column: span 2;
+  }
+
   .intro-copy {
     padding-top: 0;
   }
@@ -1182,6 +1238,18 @@ h3 {
   .product-grid,
   .image-mosaic {
     grid-template-columns: 1fr;
+  }
+
+  .image-mosaic-source {
+    grid-auto-rows: auto;
+  }
+
+  .image-mosaic-source img,
+  .image-mosaic-source img:first-child,
+  .image-mosaic-source img:nth-child(n) {
+    aspect-ratio: 4 / 5;
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .impact-grid strong {
