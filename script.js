@@ -68,11 +68,12 @@ if (lightbox) {
     }
   });
 
-  // Only the deck board imagery is worth enlarging; the small homepage
-  // mood-board photos and anchor-wrapped thumbnails are left alone.
-  const zoomables = [...document.querySelectorAll(".deck-section img")].filter(
-    (img) => !img.closest("a"),
-  );
+  // The deck boards and the homepage Featured Product Projects cards are worth
+  // enlarging; the small homepage mood-board photos and anchor-wrapped
+  // thumbnails are left alone.
+  const zoomables = [
+    ...document.querySelectorAll(".deck-section img, .product-grid img"),
+  ].filter((img) => !img.closest("a"));
   zoomables.forEach((img) => {
     img.classList.add("is-zoomable");
     img.setAttribute("role", "button");
@@ -90,4 +91,84 @@ if (lightbox) {
       }
     });
   });
+}
+
+// Subtle scroll-reveal for content sections. Progressive enhancement: the
+// hidden starting state is only applied once JS adds `reveal-ready`, and the
+// CSS for it is gated behind prefers-reduced-motion: no-preference, so content
+// is always fully visible without JS and for reduced-motion users.
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+if ("IntersectionObserver" in window && !reduceMotion.matches) {
+  // Reveal each content section except the above-the-fold hero.
+  const revealables = [...document.querySelectorAll("main > section")].filter(
+    (section) => !section.classList.contains("hero"),
+  );
+
+  if (revealables.length) {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 },
+    );
+
+    revealables.forEach((section) => {
+      section.classList.add("reveal-ready");
+      observer.observe(section);
+    });
+  }
+}
+
+// Scrollspy: highlight the nav link for the section currently in view (#61).
+// Progressive enhancement — no effect without JS or IntersectionObserver.
+if ("IntersectionObserver" in window) {
+  const linkByHash = new Map();
+  document.querySelectorAll(".nav a[href^='#']").forEach((link) => {
+    const id = decodeURIComponent(link.hash.slice(1));
+    const section = id && document.getElementById(id);
+    if (section) linkByHash.set(section, link);
+  });
+
+  if (linkByHash.size) {
+    // Track how much of each spied section is on screen and activate the
+    // top-most visible one, so the highlight follows the reading position.
+    const visibility = new Map();
+    const setActive = (activeLink) => {
+      linkByHash.forEach((link) => {
+        const on = link === activeLink;
+        link.classList.toggle("is-active", on);
+        if (on) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibility.set(entry.target, entry.intersectionRatio);
+        });
+        let best = null;
+        let bestTop = Infinity;
+        visibility.forEach((ratio, section) => {
+          if (ratio <= 0) return;
+          const top = section.getBoundingClientRect().top;
+          if (top < bestTop) {
+            bestTop = top;
+            best = section;
+          }
+        });
+        setActive(best ? linkByHash.get(best) : null);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.01, 1] },
+    );
+
+    linkByHash.forEach((link, section) => spy.observe(section));
+  }
 }

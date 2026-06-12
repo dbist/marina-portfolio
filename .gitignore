@@ -2,3 +2,4 @@ MARINA ERVITS PORTFOLIO-Sweater.pdf
 *.code-workspace
 node_modules/
 .claude/settings.local.json
+.venv/
