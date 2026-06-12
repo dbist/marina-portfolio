@@ -85,12 +85,15 @@ When converting or re-encoding extracted images (e.g. PNG -> WebP):
   ```
 
 - **Do not blindly `.convert("RGB")`** on an RGBA cut-out — that is the bug.
-- **Detect the problem** before committing: an image is suspect if all four corner pixels are near-black. Quick check across referenced images:
+- **Detect the problem** before committing by sampling the whole **perimeter**, not just the four corners. A four-corner check has a blind spot: a figure or swatch that touches one corner leaves 3/4 corners black and slips through (this happened with `page-19-1`). Flag any referenced image whose perimeter is >30% near-black, then judge each:
 
   ```python
   im = Image.open(p).convert("RGB"); w, h = im.size
-  black = all(sum(im.getpixel(xy)) < 60
-              for xy in [(2,2),(w-3,2),(2,h-3),(w-3,h-3)])
+  pts = [(x, 1) for x in range(0, w, max(1, w//50))] + \
+        [(x, h-2) for x in range(0, w, max(1, w//50))] + \
+        [(1, y) for y in range(0, h, max(1, h//50))] + \
+        [(w-2, y) for y in range(0, h, max(1, h//50))]
+  perim_black = sum(sum(im.getpixel(q)) < 45 for q in pts) / len(pts)
   ```
 
 - **Genuinely dark photos are fine and must be kept** — e.g. the Holiday disco-ball hero (`collection-02-disco-sparkle`) is a real editorial photo shot on black. Distinguish artifact from intent by checking the **PDF source**: if the matching embedded image is RGBA with transparent corners it is a cut-out (fix it); if it is opaque RGB it is a real photo (leave it).
